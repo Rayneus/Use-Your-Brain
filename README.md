@@ -1,18 +1,5 @@
-## Getting Started
+# Use Your Brain
+This project is a simplisitic java-based single player game. The objective is to navigate through a dim lit maze using logical deduction and memorization.
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
-
-## Folder Structure
-
-The workspace contains two folders by default, where:
-
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
-
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
-
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+## Current Status
+The project is currently in the prototype phase. The game current runs in command line and takes WASD as input. I use VS Code for development and testing. Be sure to use VS Code's "run java" rather than "run code" on 'Game.java'.
