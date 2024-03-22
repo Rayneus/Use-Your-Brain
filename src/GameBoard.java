@@ -1,7 +1,7 @@
 import java.awt.*;
 import javax.swing.*;
 
-public class GameBoard{
+public class GameBoard extends JPanel{
     GameSquare[][] board;
     int size;
     Player player;
@@ -10,6 +10,8 @@ public class GameBoard{
         this.board = new GameSquare[size][size];
         this.size = size;
         this.player = new Player(start_x, start_y);
+
+        setLayout(new GridLayout(size, size));
         
         board[start_x][start_y] = new GameSquare("Start", true);
         board[end_x][end_y] = new GameSquare("End", false);
@@ -22,6 +24,7 @@ public class GameBoard{
             for (int j = 0; j < size; j++) {
                 if (this.board[i][j] == null)
                     this.board[i][j] = new GameSquare("Empty", false);
+                add(this.board[i][j]);
             }
         }
     }
@@ -33,7 +36,7 @@ public class GameBoard{
                     System.out.print("Player|");
                     continue;
                 }
-                System.out.print(this.board[i][j].getType() + "|");
+                System.out.print(this.board[i][j].getSquare() + "|");
             }
             System.out.println();
         }
