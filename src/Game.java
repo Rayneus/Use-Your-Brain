@@ -14,6 +14,28 @@ public class Game {
         // Scanner myScanner = new Scanner(System.in);
         // char input;
 
+        JFrame startScreen = new JFrame();
+        startScreen.setSize(800, 800);
+        startScreen.setLayout(new BorderLayout());
+        startScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        JLabel startLabel = new JLabel("Use Your Brain!");
+        startLabel.setFont(new Font("Arial", Font.BOLD, 30));
+        startLabel.setHorizontalAlignment(JLabel.CENTER);
+        startScreen.add(startLabel, BorderLayout.CENTER);
+
+        JButton startButton = new JButton("Start Game");
+        startButton.setFont(new Font("Arial", Font.BOLD, 20));
+        startButton.addActionListener(e -> {
+            startScreen.setVisible(false);
+            mainFrame.setVisible(true);
+        });
+        startScreen.add(startButton, BorderLayout.SOUTH);
+        startScreen.isAlwaysOnTop();
+        startScreen.setVisible(true);
+
+        
+
         mainFrame.addKeyListener(new KeyAdapter() {
             public void keyReleased(KeyEvent e) {
                 int keyCode = e.getKeyCode();
@@ -38,7 +60,8 @@ public class Game {
 
         mainFrame.add(myBoard, BorderLayout.CENTER);
         mainFrame.setSize(800, 800);
-        mainFrame.setVisible(true);
+        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
 
         while(true) {
             TimeUnit.SECONDS.sleep(1);
