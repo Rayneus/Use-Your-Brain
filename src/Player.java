@@ -31,4 +31,9 @@ public class Player {
         this.x_pos -= 1;
     }
 
+    public void SetPostion( int x, int y) {
+        this.x_pos = x;
+        this.y_pos = y;
+    }
+
 }
