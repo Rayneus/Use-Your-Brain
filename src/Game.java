@@ -9,7 +9,6 @@ import javax.swing.*;
 public class Game {
     public static void main(String[] args) throws Exception {
         JFrame mainFrame = new JFrame();
-
         // Hard code start and end positions
         int startX = 0;
         int startY = 0;
@@ -95,6 +94,7 @@ public class Game {
             endScreen.setLayout(new BorderLayout());
             endScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     
+            /*
             // Load the image
             ImageIcon backgroundImage = new ImageIcon("resources/EndScreenBackground.png"); // Adjust the file path
     
@@ -102,15 +102,28 @@ public class Game {
             JLabel backgroundLabel = new JLabel(backgroundImage);
             backgroundLabel.setLayout(new BorderLayout());
             backgroundLabel.setHorizontalAlignment(JLabel.CENTER);
-    
-            // Create label if the player wins
+            */
+
+            //Create label for if the player wins
+            JLabel loseLabel = new JLabel("You Lost :()");
+            // Create label for if the player wins
             JLabel winLabel = new JLabel("YOU WON!!");
-            winLabel.setFont(new Font("Arial", Font.BOLD, 15));
-            winLabel.setHorizontalAlignment(JLabel.CENTER);
-    
+
+            JLabel resultLabel;
+
+            
+            if(myPlayer.getX() == myBoard.end_x && myPlayer.getY() == myBoard.end_y) {
+                resultLabel = loseLabel;
+            } else {
+                resultLabel = winLabel;
+            }
+            
+            resultLabel.setFont(new Font("Arial", Font.BOLD, 15));
+            resultLabel.setHorizontalAlignment(JLabel.CENTER);
+
             // Panel for winLabel centered on top half of the screen
             JPanel topPanel = new JPanel(new BorderLayout());
-            topPanel.add(winLabel, BorderLayout.CENTER);
+            topPanel.add(resultLabel, BorderLayout.CENTER);
             topPanel.setPreferredSize(new Dimension(250, 125)); // Adjust height as needed
     
             // Panel for both buttons stacked vertically
