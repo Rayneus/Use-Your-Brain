@@ -8,10 +8,9 @@ import javax.swing.*;
 
 
 public class Game {
-    
-    public static String endIcon = "resources/endSquare.png";
+    private static String endIcon = "resources/endSquare.png";
     public static String avatar = "resources/avatar.png";
-    public static String unknown = "resources/unknownSquare.png";
+    private static String unknown = "resources/unknownSquare.png";
     public static void main(String[] args) throws Exception {
         JFrame mainFrame = new JFrame();
         GameBoard myBoard = new GameBoard(5, 0, 0, 4, 4);
