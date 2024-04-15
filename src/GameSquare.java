@@ -10,7 +10,8 @@ public class GameSquare extends JLabel{
             throw new IllegalArgumentException("Invalid game square type: " + type + "\nType must be equal to one of the following | 'Breeze' | 'Empty' | 'Pit' | 'Start' | 'End' |");
         this.square = type;
         this.known = known;
-        setIcon(new ImageIcon("resources/dogeCoin.png"));
+
+        setIcon(new ImageIcon("resources/unknownSquare.png"));
     }
 
     public String getSquare() {
@@ -19,5 +20,17 @@ public class GameSquare extends JLabel{
 
     public boolean isKnown() {
         return this.known;
+    }
+
+    public void makeKnown() {
+        this.known = true;
+    }
+
+    public void makeUnknown() {
+        this.known = false;
+    }
+
+    public void updateIcon(String name){
+        setIcon(new ImageIcon(name));
     }
 }

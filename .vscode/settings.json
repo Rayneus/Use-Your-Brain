@@ -3,5 +3,6 @@
     "java.project.outputPath": "out",
     "java.project.referencedLibraries": [
         "lib/**/*.jar"
-    ]
+    ],
+    "java.debug.settings.onBuildFailureProceed": true
 }

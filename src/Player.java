@@ -15,20 +15,33 @@ public class Player {
         return this.y_pos;
     }
 
+
     public void moveUp() {
-        this.y_pos -= 1;
+        if(this.y_pos <= 0){}
+        else {
+            this.y_pos -= 1;
+        }
     }
 
     public void moveDown() {
+        if(this.y_pos >= 4){}
+        else {
         this.y_pos += 1;
+        }
     }
 
     public void moveRight() {
+        if(this.x_pos >= 4){}
+        else {
         this.x_pos += 1;
+        }
     }
 
     public void moveLeft() {
+        if(this.x_pos <= 0){}
+        else {
         this.x_pos -= 1;
+        }
     }
 
 }
