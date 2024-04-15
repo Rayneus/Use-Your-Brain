@@ -13,7 +13,12 @@ public class Game {
     private static String unknown = "resources/unknownSquare.png";
     public static void main(String[] args) throws Exception {
         JFrame mainFrame = new JFrame();
-        GameBoard myBoard = new GameBoard(5, 0, 0, 4, 4);
+        // Hard code start and end positions
+        int startX = 0;
+        int startY = 0;
+        int endX = 4;
+        int endY = 4;
+        GameBoard myBoard = new GameBoard(5, startX, startY, endX, endY);
         Player myPlayer = myBoard.player;
         JFrame startScreen = new JFrame();
         startScreen.setSize(800, 800);
@@ -64,7 +69,6 @@ public class Game {
                     myBoard.board[myPlayer.getY()][myPlayer.getX()].updateIcon(unknown);
                     myPlayer.moveLeft();
                     myBoard.printBoard();
-                    myBoard.board[myPlayer.getY()][myPlayer.getX()].updateIcon(avatar);
                 }
             }
         });
@@ -79,16 +83,87 @@ public class Game {
             
             TimeUnit.SECONDS.sleep(1);
             System.out.println(myPlayer.getX() + " " + myPlayer.getY());
+            if(myPlayer.getX() == endX && myPlayer.getY() == endY) {
             
-            myBoard.board[myPlayer.getX()][myPlayer.getY()].makeKnown();
-
-            if(myPlayer.getX() == 4 && myPlayer.getY() == 4) {
-                
+                myBoard.board[myPlayer.getX()][myPlayer.getY()].makeKnown();
+                    
                 myBoard.board[myPlayer.getX()][myPlayer.getY()].updateIcon(endIcon);
                 System.out.println("Congratulations! You won!");
-
                 return;
             }
         }
     }
+
+        // Method to show the end screen
+        private static void showEndScreen(int startX, int startY, JFrame mainFrame, Player myPlayer, GameBoard myBoard) {
+            // Create the JFrame for the end screen
+            JFrame endScreen = new JFrame();
+            endScreen.setSize(250, 250);
+            endScreen.setLayout(new BorderLayout());
+            endScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    
+            /*
+            // Load the image
+            ImageIcon backgroundImage = new ImageIcon("resources/EndScreenBackground.png"); // Adjust the file path
+    
+            // Create a JLabel to display the image
+            JLabel backgroundLabel = new JLabel(backgroundImage);
+            backgroundLabel.setLayout(new BorderLayout());
+            backgroundLabel.setHorizontalAlignment(JLabel.CENTER);
+            */
+
+            //Create label for if the player wins
+            JLabel loseLabel = new JLabel("You Lost :()");
+            // Create label for if the player wins
+            JLabel winLabel = new JLabel("YOU WON!!");
+
+            JLabel resultLabel;
+
+            
+            if(myPlayer.getX() == myBoard.end_x && myPlayer.getY() == myBoard.end_y) {
+                resultLabel = loseLabel;
+            } else {
+                resultLabel = winLabel;
+            }
+            
+            resultLabel.setFont(new Font("Arial", Font.BOLD, 15));
+            resultLabel.setHorizontalAlignment(JLabel.CENTER);
+
+            // Panel for winLabel centered on top half of the screen
+            JPanel topPanel = new JPanel(new BorderLayout());
+            topPanel.add(resultLabel, BorderLayout.CENTER);
+            topPanel.setPreferredSize(new Dimension(250, 125)); // Adjust height as needed
+    
+            // Panel for both buttons stacked vertically
+            JPanel buttonPanel = new JPanel();
+            buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
+            buttonPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+    
+            // Create restart button
+            JButton restartButton = new JButton("Restart");
+            restartButton.setFont(new Font("Arial", Font.BOLD, 15));
+            restartButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+            restartButton.addActionListener(e -> {
+                endScreen.setVisible(false);
+                myPlayer.SetPostion(startX, startY);
+                myBoard.printBoard();
+                mainFrame.setVisible(true);
+            });
+            buttonPanel.add(restartButton);
+    
+            // Create Quit button
+            JButton quitButton = new JButton("Quit");
+            quitButton.setFont(new Font("Arial", Font.BOLD, 15));
+            quitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+            quitButton.addActionListener(e -> {
+                System.exit(0); // Quit the application
+            });
+            buttonPanel.add(quitButton);
+    
+            // Add components to the end screen
+            endScreen.add(topPanel, BorderLayout.NORTH);
+            endScreen.add(buttonPanel, BorderLayout.SOUTH);
+            endScreen.setLocationRelativeTo(null); // Center the end screen on the screen
+            endScreen.setVisible(true);
+        }
 }

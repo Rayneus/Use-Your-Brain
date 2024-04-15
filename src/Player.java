@@ -44,4 +44,9 @@ public class Player {
         }
     }
 
+    public void SetPostion( int x, int y) {
+        this.x_pos = x;
+        this.y_pos = y;
+    }
+
 }

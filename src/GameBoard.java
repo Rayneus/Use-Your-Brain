@@ -5,11 +5,20 @@ public class GameBoard extends JPanel{
     GameSquare[][] board;
     int size;
     Player player;
+    // Hard code start and end positions
+    int start_x;
+    int start_y;
+    int end_x;
+    int end_y;
 
     public GameBoard(int size, int start_x, int start_y, int end_x, int end_y) {
         this.board = new GameSquare[size][size];
         this.size = size;
         this.player = new Player(start_x, start_y);
+        this.start_x = start_x;
+        this.start_y = start_y;
+        this.end_x = end_x;
+        this.end_y = end_y;
 
         setLayout(new GridLayout(size, size));
         
