@@ -23,7 +23,7 @@ public class GameBoard extends JPanel{
         setLayout(new GridLayout(size, size));
         
         board[start_x][start_y] = new GameSquare("Start", true);
-        board[start_x][start_y].updateIcon(Game.avatar);
+        board[start_x][start_y].updateIcon(Game.avatarIcon);
         board[end_x][end_y] = new GameSquare("End", false);
 
         initialize();
@@ -52,5 +52,7 @@ public class GameBoard extends JPanel{
         }
     }
 
-    
+    public int getBoardSize() {
+        return size;
+    }
 }
