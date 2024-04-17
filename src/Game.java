@@ -82,19 +82,104 @@ public class Game {
         startScreen.setSize(1000, 1000);
         startScreen.setLayout(new BorderLayout());
         startScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        JLabel startLabel = new JLabel("Use Your Brain!");
-        startLabel.setFont(new Font("Arial", Font.BOLD, 30));
-        startLabel.setHorizontalAlignment(JLabel.CENTER);
-        startScreen.add(startLabel, BorderLayout.CENTER);
+        JLabel backgroundLabel = new JLabel(new ImageIcon("resources/Start Screen.png"));
+        backgroundLabel.setLayout(new BorderLayout());
+        backgroundLabel.setHorizontalAlignment(JLabel.CENTER);
+        startScreen.add(backgroundLabel, BorderLayout.CENTER);
 
         JButton startButton = new JButton("Start Game");
         startButton.setFont(new Font("Arial", Font.BOLD, 20));
-        startButton.addActionListener(e -> {
+        startButton.setForeground(Color.WHITE);
+        startButton.setBackground(Color.BLACK);
+
+        JButton TutorialButton = new JButton("Tutorial");  
+        TutorialButton.setFont(new Font("Arial", Font.BOLD, 20));
+        TutorialButton.setForeground(Color.WHITE);
+        TutorialButton.setBackground(Color.BLACK);
+
+        TutorialButton.addActionListener(e -> {
+            JFrame tutorialScreen = new JFrame();
+            tutorialScreen.setSize(1000, 1000);
+            tutorialScreen.setLayout(new BorderLayout());
+            tutorialScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            JLabel tutorialLabel = new JLabel("<html><ol>"
+                + "<li>Use the WASD keys to move the player to the end square</li>"
+                + "<li>Where there is a Breeze there is a Pit nearby</li>"
+                + "<li>You die if you fall into a pit</li>"
+                + "<li>The end square is the goal</li>"
+                + "</ol></html>");
+            tutorialLabel.setFont(new Font("Arial", Font.BOLD, 30));
+            tutorialLabel.setHorizontalAlignment(JLabel.CENTER);
+            tutorialScreen.add(tutorialLabel, BorderLayout.CENTER);
+
+            JButton backButton = new JButton("Back");
+            backButton.setFont(new Font("Arial", Font.BOLD, 20));
+            backButton.addActionListener(e2 -> {
+                tutorialScreen.setVisible(false);
+                startScreen.setVisible(true);
+            });
+
+            tutorialScreen.add(backButton, BorderLayout.SOUTH);
+            tutorialScreen.isAlwaysOnTop();
+            tutorialScreen.setVisible(true);
             startScreen.setVisible(false);
-            mainFrame.setVisible(true);
+
         });
+
+        startButton.addActionListener(e -> {
+            JFrame difficultyScreen = new JFrame();
+            difficultyScreen.setSize(1000, 1000);
+            difficultyScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            JLabel difficultyLabel = new JLabel("Choose Difficulty");
+            difficultyLabel.setFont(new Font("Arial", Font.BOLD, 30));
+            difficultyLabel.setHorizontalAlignment(JLabel.CENTER);
+            difficultyScreen.add(difficultyLabel, BorderLayout.NORTH);
+
+            JButton easyButton = new JButton("Easy");
+            easyButton.setFont(new Font("Arial", Font.BOLD, 20));
+            easyButton.addActionListener(e2 -> {
+                difficultyScreen.setVisible(false);
+                mainFrame.setVisible(true);
+            });
+
+            JButton mediumButton = new JButton("Medium");
+            mediumButton.setFont(new Font("Arial", Font.BOLD, 20));
+            mediumButton.addActionListener(e2 -> {
+                difficultyScreen.setVisible(false);
+                mainFrame.setVisible(true);
+            });
+
+            JButton hardButton = new JButton("Hard");
+            hardButton.setFont(new Font("Arial", Font.BOLD, 20));
+            hardButton.addActionListener(e2 -> {
+                difficultyScreen.setVisible(false);
+                mainFrame.setVisible(true);
+            });
+
+
+            JButton backButton = new JButton("Back");
+            backButton.setFont(new Font("Arial", Font.BOLD, 20));
+            backButton.addActionListener(e2 -> {
+                difficultyScreen.setVisible(false);
+                startScreen.setVisible(true);
+            });
+
+            difficultyScreen.add(backButton, BorderLayout.SOUTH);
+            JPanel buttonPanel = new JPanel();
+
+            buttonPanel.add(easyButton, BorderLayout.CENTER);
+            buttonPanel.add(mediumButton, BorderLayout.CENTER);
+            buttonPanel.add(hardButton, BorderLayout.CENTER);
+            difficultyScreen.add(buttonPanel, BorderLayout.CENTER);
+
+            difficultyScreen.isAlwaysOnTop();
+            difficultyScreen.setVisible(true);
+            startScreen.setVisible(false);
+
+        });
+        
         startScreen.add(startButton, BorderLayout.SOUTH);
+        startScreen.add(TutorialButton, BorderLayout.NORTH);
         startScreen.isAlwaysOnTop();
         startScreen.setVisible(true);
     }
