@@ -163,27 +163,44 @@ public class Game {
             JFrame difficultyScreen = new JFrame();
             difficultyScreen.setSize(1000, 1000);
             difficultyScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            JLabel difficultyLabel = new JLabel("Choose Difficulty");
-            difficultyLabel.setFont(new Font("Arial", Font.BOLD, 30));
-            difficultyLabel.setHorizontalAlignment(JLabel.CENTER);
-            difficultyScreen.add(difficultyLabel, BorderLayout.NORTH);
+
+            ImageIcon backgroundImage = new ImageIcon("resources/difficultyScreen.png"); // Adjust the file path
+
+            JLabel difficultyBackground = new JLabel(backgroundImage);
+            difficultyBackground.setLayout(new BorderLayout());
+            difficultyBackground.setHorizontalAlignment(JLabel.CENTER);
 
             JButton easyButton = new JButton("Easy");
-            easyButton.setFont(new Font("Arial", Font.BOLD, 20));
+            easyButton.setForeground(Color.WHITE);
+            easyButton.setBackground(Color.BLACK);
+            easyButton.setOpaque(true);
+            easyButton.setBorderPainted(false);
+
+            easyButton.setFont(new Font("Times New Roman", Font.BOLD, 20));
             easyButton.addActionListener(e2 -> {
                 difficultyScreen.setVisible(false);
                 mainFrame.setVisible(true);
             });
 
             JButton mediumButton = new JButton("Medium");
-            mediumButton.setFont(new Font("Arial", Font.BOLD, 20));
+            mediumButton.setFont(new Font("Times New Roman", Font.BOLD, 20));
+            mediumButton.setForeground(Color.WHITE);
+            mediumButton.setBackground(Color.BLACK);
+            mediumButton.setOpaque(true);
+            mediumButton.setBorderPainted(false);
+
             mediumButton.addActionListener(e2 -> {
                 difficultyScreen.setVisible(false);
                 mainFrame.setVisible(true);
             });
 
             JButton hardButton = new JButton("Hard");
-            hardButton.setFont(new Font("Arial", Font.BOLD, 20));
+            hardButton.setFont(new Font("Times New Roman", Font.BOLD, 20));
+            hardButton.setForeground(Color.WHITE);
+            hardButton.setBackground(Color.BLACK);
+            hardButton.setOpaque(true);
+            hardButton.setBorderPainted(false);
+
             hardButton.addActionListener(e2 -> {
                 difficultyScreen.setVisible(false);
                 mainFrame.setVisible(true);
@@ -191,19 +208,27 @@ public class Game {
 
 
             JButton backButton = new JButton("Back");
-            backButton.setFont(new Font("Arial", Font.BOLD, 20));
+            backButton.setForeground(Color.WHITE);
+            backButton.setBackground(Color.BLACK);
+            backButton.setOpaque(true);
+            backButton.setBorderPainted(false);
+
+            backButton.setFont(new Font("Times New Roman", Font.BOLD, 20));
             backButton.addActionListener(e2 -> {
                 difficultyScreen.setVisible(false);
                 startScreen.setVisible(true);
             });
 
-            difficultyScreen.add(backButton, BorderLayout.SOUTH);
             JPanel buttonPanel = new JPanel();
+            buttonPanel.setBackground(Color.BLACK);
+            buttonPanel.setLayout(new GridLayout(1, 2));
 
             buttonPanel.add(easyButton, BorderLayout.CENTER);
             buttonPanel.add(mediumButton, BorderLayout.CENTER);
             buttonPanel.add(hardButton, BorderLayout.CENTER);
-            difficultyScreen.add(buttonPanel, BorderLayout.CENTER);
+            buttonPanel.add(backButton, BorderLayout.CENTER);
+            difficultyScreen.add(difficultyBackground, BorderLayout.CENTER);
+            difficultyScreen.add(buttonPanel, BorderLayout.SOUTH);
 
             difficultyScreen.isAlwaysOnTop();
             difficultyScreen.setVisible(true);
