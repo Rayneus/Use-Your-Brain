@@ -35,6 +35,9 @@ public class Game {
                     myPlayer.moveUp();
                     myBoard.printBoard();
                     myBoard.board[myPlayer.getY()][myPlayer.getX()].updateIcon(avatarIcon);
+                    if (myBoard.board[myPlayer.getY()][myPlayer.getX()].getSquare() == "Pit"){
+                        showEndScreen(startX, startY, mainFrame, myPlayer, myBoard);
+                    }
 
                 }
                 else if(keyCode == KeyEvent.VK_D || keyCode == KeyEvent.VK_RIGHT){
@@ -42,18 +45,27 @@ public class Game {
                     myPlayer.moveRight();
                     myBoard.printBoard();
                     myBoard.board[myPlayer.getY()][myPlayer.getX()].updateIcon(avatarIcon);
+                    if (myBoard.board[myPlayer.getY()][myPlayer.getX()].getSquare() == "Pit"){
+                        showEndScreen(startX, startY, mainFrame, myPlayer, myBoard);
+                    }
                 }
                 else if(keyCode == KeyEvent.VK_S || keyCode == KeyEvent.VK_DOWN){
                     myBoard.board[myPlayer.getY()][myPlayer.getX()].updateIcon(unknownIcon);
                     myPlayer.moveDown();
                     myBoard.printBoard();
                     myBoard.board[myPlayer.getY()][myPlayer.getX()].updateIcon(avatarIcon);
+                    if (myBoard.board[myPlayer.getY()][myPlayer.getX()].getSquare() == "Pit"){
+                        showEndScreen(startX, startY, mainFrame, myPlayer, myBoard);
+                    }
                 }
                 else if(keyCode == KeyEvent.VK_A || keyCode == KeyEvent.VK_LEFT){
                     myBoard.board[myPlayer.getY()][myPlayer.getX()].updateIcon(unknownIcon);
                     myPlayer.moveLeft();
                     myBoard.printBoard();
                     myBoard.board[myPlayer.getY()][myPlayer.getX()].updateIcon(avatarIcon);
+                    if (myBoard.board[myPlayer.getY()][myPlayer.getX()].getSquare() == "Pit"){
+                        showEndScreen(startX, startY, mainFrame, myPlayer, myBoard);
+                    }
                 }
 
                 if(myPlayer.getX() == endX && myPlayer.getY() == endY) {
