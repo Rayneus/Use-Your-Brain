@@ -100,35 +100,56 @@ public class Game {
         startScreen.add(backgroundLabel, BorderLayout.CENTER);
 
         JButton startButton = new JButton("Start Game");
-        startButton.setFont(new Font("Arial", Font.BOLD, 20));
+        startButton.setFont(new Font("Times New Roman", Font.BOLD, 25));
         startButton.setForeground(Color.WHITE);
         startButton.setBackground(Color.BLACK);
+        startButton.setOpaque(true);
+        startButton.setBorderPainted(false);
 
         JButton TutorialButton = new JButton("Tutorial");  
-        TutorialButton.setFont(new Font("Arial", Font.BOLD, 20));
+        TutorialButton.setFont(new Font("Times New Roman", Font.BOLD, 25));
         TutorialButton.setForeground(Color.WHITE);
         TutorialButton.setBackground(Color.BLACK);
+        TutorialButton.setOpaque(true);
+        TutorialButton.setBorderPainted(false);
+        
 
         TutorialButton.addActionListener(e -> {
             JFrame tutorialScreen = new JFrame();
             tutorialScreen.setSize(1000, 1000);
             tutorialScreen.setLayout(new BorderLayout());
             tutorialScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            
+            // Load the image
+            ImageIcon backgroundImage = new ImageIcon("resources/tutorialScreen.png"); // Adjust the file path
+
+            // Create a JLabel to display the image
+            JLabel tutorialBackground = new JLabel(backgroundImage);
+            tutorialBackground.setLayout(new BorderLayout());
+            tutorialBackground.setHorizontalAlignment(JLabel.CENTER);
+            
             JLabel tutorialLabel = new JLabel("<html><ol>"
                 + "<li>Use the WASD keys to move the player to the end square</li>"
                 + "<li>Where there is a Breeze there is a Pit nearby</li>"
                 + "<li>You die if you fall into a pit</li>"
                 + "<li>The end square is the goal</li>"
                 + "</ol></html>");
-            tutorialLabel.setFont(new Font("Arial", Font.BOLD, 30));
+            tutorialLabel.setFont(new Font("Times New Roman", Font.BOLD, 35));
+            tutorialLabel.setForeground(Color.BLACK);
             tutorialLabel.setHorizontalAlignment(JLabel.CENTER);
-            tutorialScreen.add(tutorialLabel, BorderLayout.CENTER);
+            tutorialLabel.setBorder(BorderFactory.createEmptyBorder(150, 350, 150, 300));
+            tutorialBackground.add(tutorialLabel, BorderLayout.CENTER);
+            tutorialScreen.add(tutorialBackground, BorderLayout.CENTER);
 
             JButton backButton = new JButton("Back");
-            backButton.setFont(new Font("Arial", Font.BOLD, 20));
+            backButton.setForeground(Color.WHITE);
+            backButton.setBackground(Color.BLACK);
+            backButton.setOpaque(true);
+            backButton.setBorderPainted(false);
+            backButton.setFont(new Font("Times New Roman", Font.BOLD, 20));
             backButton.addActionListener(e2 -> {
-                tutorialScreen.setVisible(false);
-                startScreen.setVisible(true);
+            tutorialScreen.setVisible(false);
+            startScreen.setVisible(true);
             });
 
             tutorialScreen.add(backButton, BorderLayout.SOUTH);
@@ -190,8 +211,12 @@ public class Game {
 
         });
         
-        startScreen.add(startButton, BorderLayout.SOUTH);
-        startScreen.add(TutorialButton, BorderLayout.NORTH);
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setBackground(Color.BLACK);
+        buttonPanel.add(startButton, BorderLayout.CENTER);
+        buttonPanel.add(TutorialButton, BorderLayout.CENTER);
+        startScreen.add(buttonPanel, BorderLayout.SOUTH);
+
         startScreen.isAlwaysOnTop();
         startScreen.setVisible(true);
     }
