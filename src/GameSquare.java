@@ -11,7 +11,7 @@ public class GameSquare extends JLabel{
         this.square = type;
         this.known = known;
 
-        setIcon(new ImageIcon("resources/unknownSquare.png"));
+        setIcon(new ImageIcon("resources/unknownTile.png"));
     }
 
     public String getSquare() {

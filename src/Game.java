@@ -1,7 +1,7 @@
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.*;
-import java.util.concurrent.TimeUnit;
+// import java.util.concurrent.TimeUnit;
 
 import javax.swing.*;
 
@@ -10,7 +10,12 @@ import javax.swing.*;
 public class Game {
     private static String endIcon = "resources/endSquare.png";
     public static String avatarIcon = "resources/avatar.png";
-    private static String unknownIcon = "resources/unknownSquare.png";// Hard code start and end positions
+    private static String unknownIcon = "resources/unknownTile.png";
+    //private static String pitIcon = "resources/pitSquare.png"
+    
+
+    // Hard code start and end positions
+
     private static int startX = 0;
     private static int startY = 0;
     private static int endX = 4;
@@ -254,16 +259,6 @@ public class Game {
         endScreen.setLayout(new BorderLayout());
         endScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        /*
-        // Load the image
-        ImageIcon backgroundImage = new ImageIcon("resources/EndScreenBackground.png"); // Adjust the file path
-
-        // Create a JLabel to display the image
-        JLabel backgroundLabel = new JLabel(backgroundImage);
-        backgroundLabel.setLayout(new BorderLayout());
-        backgroundLabel.setHorizontalAlignment(JLabel.CENTER);
-        */
-
         //Create label for if the player wins
         JLabel loseLabel = new JLabel("You Lost :(");
         // Create label for if the player wins
@@ -278,7 +273,7 @@ public class Game {
             resultLabel = loseLabel;
         }
         
-        resultLabel.setFont(new Font("Arial", Font.BOLD, 15));
+        resultLabel.setFont(new Font("Times New Roman", Font.BOLD, 20));
         resultLabel.setHorizontalAlignment(JLabel.CENTER);
 
         // Panel for winLabel centered on top half of the screen
@@ -293,7 +288,7 @@ public class Game {
 
         // Create restart button
         JButton restartButton = new JButton("Restart");
-        restartButton.setFont(new Font("Arial", Font.BOLD, 15));
+        restartButton.setFont(new Font("Times New Roman", Font.BOLD, 20));
         restartButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         restartButton.addActionListener(e -> {
             endScreen.setVisible(false);
@@ -306,7 +301,7 @@ public class Game {
 
         // Create Quit button
         JButton quitButton = new JButton("Quit");
-        quitButton.setFont(new Font("Arial", Font.BOLD, 15));
+        quitButton.setFont(new Font("Times New Roman", Font.BOLD, 20));
         quitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         quitButton.addActionListener(e -> {
             System.exit(0); // Quit the application
