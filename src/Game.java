@@ -4,10 +4,16 @@ import java.awt.*;
 
 import javax.swing.*;
 
+//  music
+import javax.sound.sampled.*;
+import java.io.*;
 
 
 public class Game {
     private static JFrame mainFrame;
+
+    // Define the path to the MenuMusic.wav file
+    public static String menuMusicPath = "resources/SoundQueues/MenuMusic.wav";
 
     private static String endIcon = "resources/endSquare.png";
     public static String avatarIcon = "resources/avatar.png";
@@ -90,6 +96,8 @@ public class Game {
 
     private static void showStartScreen(JFrame mainFrame) {
         JFrame startScreen = new JFrame();
+        // Load the menu music when the application starts
+        playMenuMusic();
         startScreen.setSize(1000, 1000);
         startScreen.setLayout(new BorderLayout());
         startScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -178,6 +186,7 @@ public class Game {
             easyButton.setFont(new Font("Times New Roman", Font.BOLD, 20));
             easyButton.addActionListener(e2 -> {
                 difficulty = "easy";
+                //stopMenuMusic();
                 myBoard = new GameBoard(difficulty);
                 myPlayer = myBoard.getPlayer();
                 mainFrame.add(myBoard, BorderLayout.CENTER);
@@ -194,6 +203,7 @@ public class Game {
 
             mediumButton.addActionListener(e2 -> {
                 difficulty = "medium";
+                //stopMenuMusic();
                 myBoard = new GameBoard(difficulty);
                 mainFrame.add(myBoard, BorderLayout.CENTER);
                 myPlayer = myBoard.getPlayer();
@@ -211,6 +221,7 @@ public class Game {
 
             hardButton.addActionListener(e2 -> {
                 difficulty = "hard";
+                //stopMenuMusic();
                 myBoard = new GameBoard(difficulty);
                 mainFrame.add(myBoard, BorderLayout.CENTER);
                 myPlayer = myBoard.getPlayer();
@@ -332,5 +343,24 @@ public class Game {
         endScreen.add(buttonPanel, BorderLayout.SOUTH);
         mainFrame.setVisible(false);
         endScreen.setVisible(true);
+    }
+
+    // Method to play the menu music
+    private static void playMenuMusic() {
+        try {
+            File musicPath = new File(menuMusicPath);
+
+            if(musicPath.exists()){
+                AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
+                Clip clip = AudioSystem.getClip();
+                clip.open(audioInput);
+                clip.start();
+            } else {
+                System.out.println("FILE NOT FOUND");
+            }
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 }
