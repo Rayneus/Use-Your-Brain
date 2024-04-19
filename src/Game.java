@@ -23,7 +23,9 @@ public class Game {
 
     private static int startX;
     private static int startY;
+
     public static void main(String[] args) throws Exception {
+        // Create the main frame
         mainFrame = new JFrame();
         showStartScreen(mainFrame);
         
@@ -113,7 +115,7 @@ public class Game {
 
         TutorialButton.addActionListener(e -> {
             JFrame tutorialScreen = new JFrame();
-            tutorialScreen.setSize(1000, 1000);
+            tutorialScreen.setSize(1000,1000);
             tutorialScreen.setLayout(new BorderLayout());
             tutorialScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             
@@ -158,7 +160,7 @@ public class Game {
 
         startButton.addActionListener(e -> {
             JFrame difficultyScreen = new JFrame();
-            difficultyScreen.setSize(1000, 1000);
+            difficultyScreen.setSize(1000,1000);
             difficultyScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
             ImageIcon backgroundImage = new ImageIcon("resources/difficultyScreen.png"); // Adjust the file path
@@ -196,6 +198,7 @@ public class Game {
                 mainFrame.add(myBoard, BorderLayout.CENTER);
                 myPlayer = myBoard.getPlayer();
                 difficultyScreen.setVisible(false);
+                mainFrame.setSize(1200,1050);
                 mainFrame.setVisible(true);
             });
 
@@ -211,6 +214,7 @@ public class Game {
                 myBoard = new GameBoard(difficulty);
                 mainFrame.add(myBoard, BorderLayout.CENTER);
                 myPlayer = myBoard.getPlayer();
+                mainFrame.setSize(1400,1080);
                 difficultyScreen.setVisible(false);
                 mainFrame.setVisible(true);
             });
@@ -259,14 +263,16 @@ public class Game {
     private static void showEndScreen(int startX, int startY, JFrame mainFrame, Player myPlayer, GameBoard myBoard) {
         // Create the JFrame for the end screen
         JFrame endScreen = new JFrame();
-        endScreen.setSize(250, 250);
+        endScreen.setSize(1000,1000);
         endScreen.setLayout(new BorderLayout());
         endScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //Create label for if the player wins
-        JLabel loseLabel = new JLabel("You Lost :(");
+        ImageIcon loseImage = new ImageIcon("resources/endScreenLoss.png");
+        JLabel loseLabel = new JLabel(loseImage);
         // Create label for if the player wins
-        JLabel winLabel = new JLabel("YOU WON!!");
+        ImageIcon winImage = new ImageIcon("resources/endScreenWin.png");
+        JLabel winLabel = new JLabel(winImage);
 
         JLabel resultLabel;
 
@@ -278,7 +284,9 @@ public class Game {
         }
         
         resultLabel.setFont(new Font("Times New Roman", Font.BOLD, 20));
+        resultLabel.setLayout(new BorderLayout());
         resultLabel.setHorizontalAlignment(JLabel.CENTER);
+
 
         // Panel for winLabel centered on top half of the screen
         JPanel topPanel = new JPanel(new BorderLayout());
@@ -287,13 +295,16 @@ public class Game {
 
         // Panel for both buttons stacked vertically
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
-        buttonPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        buttonPanel.setLayout(new GridLayout(1, 2));
 
         // Create restart button
         JButton restartButton = new JButton("Restart");
         restartButton.setFont(new Font("Times New Roman", Font.BOLD, 20));
-        restartButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        restartButton.setForeground(Color.WHITE);
+        restartButton.setBackground(Color.BLACK);
+        restartButton.setOpaque(true);
+        restartButton.setBorderPainted(false);
+
         restartButton.addActionListener(e -> {
             endScreen.setVisible(false);
             myPlayer.SetPostion(startX, startY);
@@ -306,16 +317,20 @@ public class Game {
         // Create Quit button
         JButton quitButton = new JButton("Quit");
         quitButton.setFont(new Font("Times New Roman", Font.BOLD, 20));
-        quitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        quitButton.setForeground(Color.WHITE);
+        quitButton.setBackground(Color.BLACK);
+        quitButton.setOpaque(true);
+        quitButton.setBorderPainted(false);
+
         quitButton.addActionListener(e -> {
             System.exit(0); // Quit the application
         });
         buttonPanel.add(quitButton);
 
         // Add components to the end screen
-        endScreen.add(topPanel, BorderLayout.NORTH);
+        endScreen.add(topPanel, BorderLayout.CENTER);
         endScreen.add(buttonPanel, BorderLayout.SOUTH);
-        endScreen.setLocationRelativeTo(null); // Center the end screen on the screen
+        mainFrame.setVisible(false);
         endScreen.setVisible(true);
     }
 }

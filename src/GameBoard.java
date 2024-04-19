@@ -35,6 +35,7 @@ public class GameBoard extends JPanel{
         this.board = new GameSquare[size][size];
         setLayout(new GridLayout(size, size));
 
+
         initialize();
     }
 
@@ -65,7 +66,10 @@ public class GameBoard extends JPanel{
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             String line;
             while ((line = br.readLine()) != null) {
-                line = line.replace("\u00EF\u00BB\u00BF", ""); // removing utf-8 BOM
+                // removing UTF-8 BOM
+                line = line.replace("\u00EF\u00BB\u00BF", "");
+                line = line.replace("\uFEFF", "");
+                
                 String[] values = line.split(",");
                 records.add(Arrays.asList(values));
             }
