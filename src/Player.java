@@ -1,10 +1,12 @@
 public class Player {
     private int x_pos;
     private int y_pos;
+    private int limit;
 
-    public Player(int start_x, int start_y) {
+    public Player(int start_x, int start_y, int size) {
         this.x_pos = start_x;
         this.y_pos = start_y;
+        this.limit = size-1;
     }
 
     public int getX() {
@@ -24,14 +26,14 @@ public class Player {
     }
 
     public void moveDown() {
-        if(this.y_pos >= 4){}
+        if(this.y_pos >= limit){}
         else {
         this.y_pos += 1;
         }
     }
 
     public void moveRight() {
-        if(this.x_pos >= 4){}
+        if(this.x_pos >= limit){}
         else {
         this.x_pos += 1;
         }

@@ -1,30 +1,39 @@
 import java.awt.*;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Arrays;
+import java.io.BufferedReader;
+import java.io.FileReader;
+
 import javax.swing.*;
 
 public class GameBoard extends JPanel{
-    GameSquare[][] board;
-    int size;
-    Player player;
+    public GameSquare[][] board;
+    private int size;
+    private Player player;
+    private List<List<String>> raw;
     // Hard code start and end positions
-    int start_x;
-    int start_y;
-    int end_x;
-    int end_y;
+    public int start_x;
+    public int start_y;
+    public int end_x;
+    public int end_y;
 
-    public GameBoard(int size, int start_x, int start_y, int end_x, int end_y) {
-        this.board = new GameSquare[size][size];
-        this.size = size;
-        this.player = new Player(start_x, start_y);
-        this.start_x = start_x;
-        this.start_y = start_y;
-        this.end_x = end_x;
-        this.end_y = end_y;
-
-        setLayout(new GridLayout(size, size));
+    public GameBoard(String dif) {
+        try {
+            if(dif.equals("easy"))
+                raw = readCSV("resources/5x5.csv");
+            else if(dif.equals("medium"))
+                raw = readCSV("resources/6x6.csv");
+            else
+                raw = readCSV("resources/7x7.csv");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         
-        board[start_x][start_y] = new GameSquare("Start", true);
-        board[start_x][start_y].updateIcon(Game.avatarIcon);
-        board[end_x][end_y] = new GameSquare("End", false);
+        this.size = raw.size();
+        this.board = new GameSquare[size][size];
+        setLayout(new GridLayout(size, size));
 
         initialize();
     }
@@ -32,11 +41,36 @@ public class GameBoard extends JPanel{
     private void initialize() {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                if (this.board[i][j] == null)
-                    this.board[i][j] = new GameSquare("Empty", false);
-                add(this.board[i][j]);
+                String type = this.raw.get(i).get(j);
+
+                if (type.equals("Start")){
+                    this.player = new Player(i, j, size);
+                    this.start_x = i;
+                    this.start_y = j;
+                }
+                else if (type.equals("End")) {
+                    this.end_x = i;
+                    this.end_y = j;
+                }
+
+                this.board[i][j] = new GameSquare(type);
+                add(board[i][j]);
             }
         }
+        this.board[start_x][start_y].updateIcon(Game.avatarIcon);
+    }
+
+    private List<List<String>> readCSV(String filename) throws IOException {
+        List<List<String>> records = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                line = line.replace("\u00EF\u00BB\u00BF", ""); // removing utf-8 BOM
+                String[] values = line.split(",");
+                records.add(Arrays.asList(values));
+            }
+        }
+        return records;
     }
 
     public void printBoard() {
@@ -54,5 +88,9 @@ public class GameBoard extends JPanel{
 
     public int getBoardSize() {
         return size;
+    }
+
+    public Player getPlayer() {
+        return this.player;
     }
 }

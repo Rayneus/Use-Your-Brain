@@ -1,36 +1,38 @@
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.*;
-// import java.util.concurrent.TimeUnit;
 
 import javax.swing.*;
 
 
 
 public class Game {
+    private static JFrame mainFrame;
+
     private static String endIcon = "resources/endSquare.png";
     public static String avatarIcon = "resources/avatar.png";
     private static String unknownIcon = "resources/unknownTile.png";
-    //private static String pitIcon = "resources/pitSquare.png"
+    private static String pitIcon = "resources/pitSquare.png";
+
+    private static String difficulty;
+    private static GameBoard myBoard;
+    private static Player myPlayer;
     
 
     // Hard code start and end positions
 
-    private static int startX = 0;
-    private static int startY = 0;
-    private static int endX = 4;
-    private static int endY = 4;
+    private static int startX;
+    private static int startY;
     public static void main(String[] args) throws Exception {
-        JFrame mainFrame = new JFrame();
+        mainFrame = new JFrame();
+        showStartScreen(mainFrame);
         
-        GameBoard myBoard = new GameBoard(5, startX, startY, endX, endY);
-        Player myPlayer = myBoard.player;
-        mainFrame.add(myBoard, BorderLayout.CENTER);
+        // myBoard = new GameBoard(difficulty);
+
+        // myPlayer = myBoard.getPlayer();
         mainFrame.setSize(1000, 1000);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        showStartScreen(mainFrame);
-        
         mainFrame.addKeyListener(new KeyAdapter() {
             public void keyReleased(KeyEvent e) {
         
@@ -40,44 +42,34 @@ public class Game {
                     myPlayer.moveUp();
                     myBoard.printBoard();
                     myBoard.board[myPlayer.getY()][myPlayer.getX()].updateIcon(avatarIcon);
-                    if (myBoard.board[myPlayer.getY()][myPlayer.getX()].getSquare() == "Pit"){
-                        showEndScreen(startX, startY, mainFrame, myPlayer, myBoard);
-                    }
-
                 }
                 else if(keyCode == KeyEvent.VK_D || keyCode == KeyEvent.VK_RIGHT){
                     myBoard.board[myPlayer.getY()][myPlayer.getX()].updateIcon(unknownIcon);
                     myPlayer.moveRight();
                     myBoard.printBoard();
                     myBoard.board[myPlayer.getY()][myPlayer.getX()].updateIcon(avatarIcon);
-                    if (myBoard.board[myPlayer.getY()][myPlayer.getX()].getSquare() == "Pit"){
-                        showEndScreen(startX, startY, mainFrame, myPlayer, myBoard);
-                    }
                 }
                 else if(keyCode == KeyEvent.VK_S || keyCode == KeyEvent.VK_DOWN){
                     myBoard.board[myPlayer.getY()][myPlayer.getX()].updateIcon(unknownIcon);
                     myPlayer.moveDown();
                     myBoard.printBoard();
                     myBoard.board[myPlayer.getY()][myPlayer.getX()].updateIcon(avatarIcon);
-                    if (myBoard.board[myPlayer.getY()][myPlayer.getX()].getSquare() == "Pit"){
-                        showEndScreen(startX, startY, mainFrame, myPlayer, myBoard);
-                    }
                 }
                 else if(keyCode == KeyEvent.VK_A || keyCode == KeyEvent.VK_LEFT){
                     myBoard.board[myPlayer.getY()][myPlayer.getX()].updateIcon(unknownIcon);
                     myPlayer.moveLeft();
                     myBoard.printBoard();
                     myBoard.board[myPlayer.getY()][myPlayer.getX()].updateIcon(avatarIcon);
-                    if (myBoard.board[myPlayer.getY()][myPlayer.getX()].getSquare() == "Pit"){
-                        showEndScreen(startX, startY, mainFrame, myPlayer, myBoard);
-                    }
+                    
                 }
 
-                if(myPlayer.getX() == endX && myPlayer.getY() == endY) {
-            
-                    
-                    myBoard.board[myPlayer.getX()][myPlayer.getY()].updateIcon(endIcon);
+                if(myPlayer.getX() == myBoard.end_x && myPlayer.getY() == myBoard.end_y) {
+                    myBoard.board[myPlayer.getY()][myPlayer.getX()].updateIcon(endIcon);
                     System.out.println("Congratulations! You won!");
+                    showEndScreen(startX, startY, mainFrame, myPlayer, myBoard);
+                }
+                else if (myBoard.board[myPlayer.getY()][myPlayer.getX()].getSquare().equals("Pit")){
+                    myBoard.board[myPlayer.getY()][myPlayer.getX()].updateIcon(pitIcon);
                     showEndScreen(startX, startY, mainFrame, myPlayer, myBoard);
                 }
             }
@@ -183,6 +175,10 @@ public class Game {
 
             easyButton.setFont(new Font("Times New Roman", Font.BOLD, 20));
             easyButton.addActionListener(e2 -> {
+                difficulty = "easy";
+                myBoard = new GameBoard(difficulty);
+                myPlayer = myBoard.getPlayer();
+                mainFrame.add(myBoard, BorderLayout.CENTER);
                 difficultyScreen.setVisible(false);
                 mainFrame.setVisible(true);
             });
@@ -195,6 +191,10 @@ public class Game {
             mediumButton.setBorderPainted(false);
 
             mediumButton.addActionListener(e2 -> {
+                difficulty = "medium";
+                myBoard = new GameBoard(difficulty);
+                mainFrame.add(myBoard, BorderLayout.CENTER);
+                myPlayer = myBoard.getPlayer();
                 difficultyScreen.setVisible(false);
                 mainFrame.setVisible(true);
             });
@@ -207,6 +207,10 @@ public class Game {
             hardButton.setBorderPainted(false);
 
             hardButton.addActionListener(e2 -> {
+                difficulty = "hard";
+                myBoard = new GameBoard(difficulty);
+                mainFrame.add(myBoard, BorderLayout.CENTER);
+                myPlayer = myBoard.getPlayer();
                 difficultyScreen.setVisible(false);
                 mainFrame.setVisible(true);
             });
