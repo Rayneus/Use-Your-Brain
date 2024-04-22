@@ -29,6 +29,7 @@ public class Game {
     public static String avatarIcon = "resources/avatar.png";
     private static String unknownIcon = "resources/unknownTile.png";
     private static String pitIcon = "resources/pitSquare.png";
+    private static String breezeAvatar = "resources/breezeAvatar.png";
 
     private static String difficulty;
     private static GameBoard myBoard;
@@ -103,6 +104,11 @@ public class Game {
                     MusicPlayer.stop(moveSoundIndex);
                     MusicPlayer.play(fallingPath, fallingSoundIndex);
                     showEndScreen(startX, startY, mainFrame, myPlayer, myBoard);
+                }
+                else if (myBoard.board[myPlayer.getY()][myPlayer.getX()].getSquare().equals("Breeze")){
+                    MusicPlayer.stop(moveSoundIndex);
+                    MusicPlayer.play(breezePath, breezeSoundIndex);
+                    myBoard.board[myPlayer.getY()][myPlayer.getX()].updateIcon(breezeAvatar);
                 }
             }
         });
