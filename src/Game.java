@@ -48,9 +48,6 @@ public class Game {
         MusicPlayer = new PlaySound(6);
         showStartScreen(mainFrame);
         
-        // myBoard = new GameBoard(difficulty);
-
-        // myPlayer = myBoard.getPlayer();
         mainFrame.setSize(1000, 1000);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -202,7 +199,7 @@ public class Game {
             difficultyScreen.setSize(1000,1000);
             difficultyScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-            ImageIcon backgroundImage = new ImageIcon("resources/difficultyScreen.png"); // Adjust the file path
+            ImageIcon backgroundImage = new ImageIcon("./resources/difficultyScreen.png"); // Adjust the file path
 
             JLabel difficultyBackground = new JLabel(backgroundImage);
             difficultyBackground.setLayout(new BorderLayout());
