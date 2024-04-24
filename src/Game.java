@@ -89,7 +89,7 @@ public class Game {
                     
                 }
 
-                if(myPlayer.getX() == myBoard.end_x && myPlayer.getY() == myBoard.end_y) {
+                if(myBoard.board[myPlayer.getY()][myPlayer.getX()].getSquare().equals("End")) {
                     myBoard.board[myPlayer.getY()][myPlayer.getX()].updateIcon(endIcon);
                     MusicPlayer.stop(moveSoundIndex);
                     MusicPlayer.play(endLevelPath, endLevelSoundIndex);
@@ -164,10 +164,10 @@ public class Game {
             tutorialBackground.setHorizontalAlignment(JLabel.CENTER);
             
             JLabel tutorialLabel = new JLabel("<html><ol>"
-                + "<li>Use the WASD keys to move the player to the end square</li>"
-                + "<li>Where there is a Breeze there is a Pit nearby</li>"
-                + "<li>You die if you fall into a pit</li>"
-                + "<li>The end square is the goal</li>"
+                + "<li>Use the W,A,S,D or arrow keys to move around the game board</li>"
+                + "<li>Where there is a Breeze, a Pit is nearby</li>"
+                + "<li>Fall into a pit and the game ends.</li>"
+                + "<li>Find the end square and you win!</li>"
                 + "</ol></html>");
             tutorialLabel.setFont(new Font("Times New Roman", Font.BOLD, 35));
             tutorialLabel.setForeground(Color.BLACK);
@@ -317,9 +317,8 @@ public class Game {
         JLabel winLabel = new JLabel(winImage);
 
         JLabel resultLabel;
-
         
-        if(myPlayer.getX() == myBoard.end_x && myPlayer.getY() == myBoard.end_y) {
+        if(myBoard.board[myPlayer.getY()][myPlayer.getX()].getSquare().equals("End")) {
             resultLabel = winLabel;
         } else {
             resultLabel = loseLabel;
@@ -337,7 +336,7 @@ public class Game {
 
         // Panel for both buttons stacked vertically
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new GridLayout(1, 2));
+        buttonPanel.setLayout(new GridLayout(1, 3));
 
         // Create restart button
         JButton restartButton = new JButton("Restart");
@@ -356,6 +355,22 @@ public class Game {
             mainFrame.setVisible(true);
         });
         buttonPanel.add(restartButton);
+
+        //Create change difficulty button
+        JButton homeButton = new JButton("Home");
+        homeButton.setFont(new Font("Times New Roman", Font.BOLD, 20));
+        homeButton.setForeground(Color.WHITE);
+        homeButton.setBackground(Color.BLACK);
+        homeButton.setOpaque(true);
+        homeButton.setBorderPainted(false);
+
+        homeButton.addActionListener(e -> {
+            MusicPlayer.stop(menuIndex);
+            endScreen.setVisible(false);
+            mainFrame.remove(myBoard);
+            showStartScreen(mainFrame);
+        });
+        buttonPanel.add(homeButton);
 
         // Create Quit button
         JButton quitButton = new JButton("Quit");
